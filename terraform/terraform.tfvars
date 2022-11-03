@@ -1,6 +1,7 @@
 ecs_cluster="aetion"
-aws_access_key_id = "ABCDEFGHIJ" # Write our AWS cli credentials here
-aws_secret_access_key = "password" # write your password here
+aws_access_key_id = "xxxxxxxx" # Write our AWS cli credentials here
+aws_secret_access_key = "xxxxxxxxx" # write your password here
+token = "xxxxxxxxx"
 region = "us-east-1"
 nyc_vpc = "aetion-vpc"
 vpc_network_cidr = "10.0.0.0/16"

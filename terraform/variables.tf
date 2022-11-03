@@ -7,6 +7,10 @@ variable "aws_secret_access_key" {
   description = "AWS secret access key"
 }
 
+variable "token" {
+  description = "AWS session token"
+}
+
 variable "ecs_cluster" {
   description = "ECS cluster name"
 }
