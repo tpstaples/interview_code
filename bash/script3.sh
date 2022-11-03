@@ -1,0 +1,1 @@
+output=();while IFS= read -r line; do output+=( "$line" ); done < <(kubectl get nodes --no-headers   | grep minion | awk '{print $1}') ;for ((j = 0; j < ${#output[@]}; j++ )); do echo ""; echo "----------------- NODE ${output[$j]} ---------------------"; kubectl get pods --all-namespaces -o wide | grep ${output[$j]}; done
