@@ -1,0 +1,55 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: node-script-runner
+  namespace: kube-system
+  labels:
+    app: node-script-runner
+spec:
+  template:
+    metadata:
+      labels:
+        app: node-script-runner 
+    spec:
+      hostPID: true
+      containers:
+      - name: node-script-runner
+        image: fakedockerhubrepo/node-modifier-startup-script:v1.0.0
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+        env:
+        - name: STARTUP_SCRIPT
+          value: | 
+            sysctl -w net.netfilter.nf_conntrack_tcp_timeout_close_wait=30
+            sysctl -w net.netfilter.nf_conntrack_tcp_timeout_time_wait=120
+            sysctl -w net.netfilter.nf_conntrack_tcp_be_liberal=1
+            sysctl -w net.ipv4.tcp_keepalive_time=298
+            sysctl -w net.ipv4.tcp_tw_reuse=1
+            sysctl --system
+            curl -O http://www.tweegy.nl/download/netstat-nat-1.4.10.tar.gz; tar zxf netstat-nat-1.4.10.tar.gz; cd      netstat-nat-1.4.10; yum install -y gcc ; ./configure ; make ; make install
+            curl -o /sendportusemetrics.py https://469bf23d84893c9533ccc2ffd8edd13510ea3d3b@github.mheducation.com/raw/SRE/openlearning/master/NR/sendportusemetrics.py
+            curl -o /looper.sh https://469bf23d84893c9533ccc2ffd8edd13510ea3d3b@github.mheducation.com/raw/SRE/       openlearning/master/NR/looper.sh
+            bash /looper.sh &
+            rm -f /var/lib/rpm/__db*
+            /usr/lib/rpm/rpmdb_verify /var/lib/rpm/Packages
+            cd /var/lib/rpm/
+            mv Packages Packages.back
+            /usr/lib/rpm/rpmdb_dump Packages.back | /usr/lib/rpm/rpmdb_load Packages
+            /usr/lib/rpm/rpmdb_verify Packages
+            rpm -qa >/dev/null
+            rpm -vv --rebuilddb
+            yum install -y at
+      dnsPolicy: ClusterFirst
+      hostPID: true
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 5
+      nodeSelector:
+        beta.kubernetes.io/os: linux
+      tolerations:
+      - operator: Exists
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 100%    
+    type: RollingUpdate
