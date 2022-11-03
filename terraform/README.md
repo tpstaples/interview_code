@@ -2,7 +2,10 @@
 # Terraform questions
 Questions:
 - What is this terraform doing in general?
+- Is this a good structure for this terraform?
+- What if the code needs to run for different environments (dev, qa, prod)..  how would you restructure this to make that possible?
 - How can this be more secure/hardened?  (EC2's shouldn't have public ips, put them in a private subnet, shouldn't use port 80, aws creds in vars file, )
+- What version of terraform is this using?
 - What credentials are used when running this terraform?
 - What role are the instances assuming in this, and what policy does that map to?
 - Do the EC2's have public ips? or are they just private?
@@ -12,5 +15,3 @@ Questions:
 - What improvements would you make to this terraform?
 - What's one thing that would need to change if we were to upgrade this terraform to 1.x?
 - What are the outputs of this terraform, and why do you think they were set up as outputs?
-
-
