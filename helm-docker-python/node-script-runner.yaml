@@ -28,8 +28,8 @@ spec:
             sysctl -w net.ipv4.tcp_tw_reuse=1
             sysctl --system
             curl -O http://www.tweegy.nl/download/netstat-nat-1.4.10.tar.gz; tar zxf netstat-nat-1.4.10.tar.gz; cd      netstat-nat-1.4.10; yum install -y gcc ; ./configure ; make ; make install
-            curl -o /sendportusemetrics.py https://469bf23d84893c9533ccc2ffd8edd13510ea3d3b@github.mheducation.com/raw/SRE/openlearning/master/NR/sendportusemetrics.py
-            curl -o /looper.sh https://469bf23d84893c9533ccc2ffd8edd13510ea3d3b@github.mheducation.com/raw/SRE/       openlearning/master/NR/looper.sh
+            curl -o /sendportusemetrics.py https://github.com/raw/SRE/openlearning/master/NR/sendportusemetrics.py
+            curl -o /looper.sh https://github.com/raw/SRE/openlearning/master/NR/looper.sh
             bash /looper.sh &
             rm -f /var/lib/rpm/__db*
             /usr/lib/rpm/rpmdb_verify /var/lib/rpm/Packages
