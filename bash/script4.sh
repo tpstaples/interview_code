@@ -1,5 +1,5 @@
 import boto3
-queue_url = "https://sqs.us-east-1.amazonaws.com/xxxxxxx/example"
+queue_url = "https://sqs.us-east-1.amazonaws.com/xxxxxxx/example"  # change me before running or set up argument handling for this script
 
 sqs_client = boto3.client('sqs')
 messages = []
